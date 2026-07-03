@@ -1,0 +1,57 @@
+Q2 - Secure Project Workspace Setup Report
+=========================================
+
+1) Workspace creation
+Command: mkdir -p q2/secure_workspace/{docs,src,logs}
+Output:
+(no output)
+
+Observation: The secure workspace and its subdirectories were created successfully.
+
+2) Files created inside the workspace
+Command: touch q2/secure_workspace/docs/plan.txt q2/secure_workspace/src/app.txt q2/secure_workspace/logs/activity.log
+Output:
+(no output)
+
+Observation: The required project files were created inside the docs, src, and logs folders.
+
+3) Permissions and ownership before and after modification
+Command: ls -ld q2/secure_workspace q2/secure_workspace/*
+Output:
+drwxrwxrwx+ 5 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/docs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/logs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/src
+
+Command: chmod 750 q2/secure_workspace
+Command: chmod 750 q2/secure_workspace/docs q2/secure_workspace/src q2/secure_workspace/logs
+Command: chmod 640 q2/secure_workspace/docs/plan.txt q2/secure_workspace/src/app.txt q2/secure_workspace/logs/activity.log
+Command: ls -ld q2/secure_workspace q2/secure_workspace/*
+Output:
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/docs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 17:48 q2/secure_workspace/src
+
+Command: ls -l q2/secure_workspace/*
+Output:
+q2/secure_workspace/docs:
+-rw-r----- 1 codespace codespace 0 Jul  3 18:10 plan.txt
+
+q2/secure_workspace/logs:
+-rw-r----- 1 codespace codespace 0 Jul  3 18:10 activity.log
+
+q2/secure_workspace/src:
+-rw-r----- 1 codespace codespace 0 Jul  3 18:10 app.txt
+
+Observation: The permissions were tightened from open access to restricted access, and the ownership remained codespace:codespace.
+
+4) Umask value
+Command: umask
+Output:
+0022
+
+Observation: The umask used was 0022, which removed write permission for group and others on newly created files.
+
+5) Protection explanation
+The final permissions restrict access so that only the owner can read, write, and execute the directories, while group members and others have limited or no access. This helps protect project data from accidental or unauthorized access.

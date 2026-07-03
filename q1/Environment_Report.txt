@@ -1,0 +1,47 @@
+Q1 - Environment Verification Report
+=================================
+
+1) Username and groups
+Command: whoami
+Output:
+codespace
+
+Command: groups
+Output:
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+
+Observation: The current Linux user is codespace and it belongs to multiple groups required for development tools.
+
+2) Current shell
+Command: echo "$SHELL"
+Output:
+/bin/bash
+
+Observation: The active shell is bash.
+
+3) Current working directory
+Command: pwd
+Output:
+/workspaces/sga-1
+
+Observation: The current working directory is the workspace root.
+
+4) Files and directories in the workspace
+Command: ls -ls
+Output:
+total 24
+4 -rw-rw-rw-  1 codespace root         7 Jul  3 17:39 README.md
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:42 q1
+4 drwxrwxrwx+ 3 codespace codespace 4096 Jul  3 17:48 q2
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:54 q3
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:57 q4
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:42 q5
+
+Observation: The workspace contains the main README and five question folders.
+
+5) Network connectivity verification
+Command: curl -s --max-time 10 https://youtube.com > /dev/null && echo "Network: youtube.com reachable"
+Output:
+Network: youtube.com reachable
+
+Observation: The environment can reach the internet and the URL responded successfully.

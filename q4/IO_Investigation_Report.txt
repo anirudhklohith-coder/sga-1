@@ -1,0 +1,46 @@
+Q4 - File Access and I/O Investigation Report
+============================================
+
+1) Creating a sample log file
+Command: echo "sample log line" > q4/app.log
+Output:
+(no output)
+
+Observation: A sample log file was created for testing file access and descriptor behavior.
+
+2) Open file and file descriptor observation
+Command: exec 3<q4/app.log
+Command: lsof -p $$
+Output:
+The shell process showed file descriptor 3 reading from q4/app.log.
+
+Command: ls -l /proc/$$/fd
+Output:
+0 -> /dev/pts/6
+1 -> /dev/pts/6
+2 -> /dev/pts/6
+3 -> /workspaces/sga-1/q4/app.log
+
+Observation: Linux exposes open files through file descriptors, and the shell process had the log file opened on descriptor 3.
+
+3) Output redirection and error redirection
+Command: ls -l > q4/stdout.txt
+Command: ls /not_a_real_path 2> q4/stderr.txt
+Command: (ls -l && ls /not_a_real_path) > q4/combined.txt 2>&1
+Output:
+(no output)
+
+Observation: Standard output was redirected into stdout.txt, standard error was redirected into stderr.txt, and both streams were combined into combined.txt.
+
+4) Resource limits
+Command: ulimit -a
+Output:
+open files (-n) 524288
+stack size (kbytes, -s) 8192
+file size (blocks, -f) unlimited
+...
+
+Observation: The shell has a high limit for open files, which supports many concurrent file descriptors and processes.
+
+5) Conclusion
+Linux manages file I/O by using file descriptors that represent open files, pipes, terminals, and devices. Redirection changes where standard output and standard error are sent, and resource limits control how many files or processes a shell can open.

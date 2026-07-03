@@ -1,0 +1,7 @@
+total 24
+-rw-rw-rw-  1 codespace root         7 Jul  3 17:39 README.md
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:42 q1
+drwxrwxrwx+ 3 codespace codespace 4096 Jul  3 17:48 q2
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 18:10 q3
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 18:10 q4
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:42 q5

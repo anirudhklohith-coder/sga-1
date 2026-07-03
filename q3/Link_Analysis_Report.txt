@@ -1,0 +1,63 @@
+Q3 - File System and Link Analysis Report
+========================================
+
+1) Creating the files and links
+Command: rm -f q3/original.txt q3/hardlink.txt q3/symlink.txt
+Output:
+(no output)
+
+Command: echo "Linux link test file" > q3/original.txt
+Output:
+(no output)
+
+Command: ln q3/original.txt q3/hardlink.txt
+Command: ln -s q3/original.txt q3/symlink.txt
+Output:
+(no output)
+
+Observation: A regular file, a hard link, and a symbolic link were created successfully.
+
+2) Inode numbers and link behavior
+Command: ls -li q3
+Output:
+total 8
+1310751 -rw-rw-rw- 2 codespace codespace 21 Jul  3 18:10 hardlink.txt
+1310751 -rw-rw-rw- 2 codespace codespace 21 Jul  3 18:10 original.txt
+1310805 lrwxrwxrwx 1 codespace codespace 15 Jul  3 18:10 symlink.txt -> q3/original.txt
+
+Command: stat q3/original.txt q3/hardlink.txt q3/symlink.txt
+Output:
+File: q3/original.txt
+Inode: 1310751
+Links: 2
+
+File: q3/hardlink.txt
+Inode: 1310751
+Links: 2
+
+File: q3/symlink.txt -> q3/original.txt
+Inode: 1310805
+Links: 1
+
+Observation: The hard link and original file share the same inode, while the symbolic link has a different inode and points to the target path.
+
+3) Effect of deleting the original file
+Command: rm q3/original.txt
+Command: ls -li q3
+Output:
+total 4
+1310751 -rw-rw-rw- 1 codespace codespace 21 Jul  3 18:10 hardlink.txt
+1310805 lrwxrwxrwx 1 codespace codespace 15 Jul  3 18:10 symlink.txt -> q3/original.txt
+
+Command: cat q3/hardlink.txt
+Output:
+Linux link test file
+
+Command: cat q3/symlink.txt
+Output:
+cat: q3/symlink.txt: No such file or directory
+
+Observation: The hard link still works after the original file is deleted, but the symbolic link breaks because it depends on a target path.
+
+4) Conclusion
+Hard links are alternate names for the same inode and continue to work after the original name is removed. Symbolic links are separate filesystem entries that point to another name, so they fail if the target path is removed.
